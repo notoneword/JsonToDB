@@ -4,6 +4,7 @@ class TripData:
 
   def insert(self, conn):
       cursor = conn.cursor()
+      print('Inserting 1 record into trips DB...')
       cursor.execute(
           '''INSERT INTO trips 
             (route_id,service_id,trip_id,trip_headsign,trip_short_name,direction_id,block_id,shape_id,wheelchair_accessible,bikes_allowed) 
@@ -13,6 +14,8 @@ class TripData:
           + str(self.attrs['block_id']) + ',' + str(self.attrs['shape_id']) + ',' + str(self.attrs['wheelchair_accessible']) + ','
           + str(self.attrs['bikes_allowed']) +
             ')')
+      
+      print('Inserting {} record(s) into apc_raw DB...'.format(len(self.attrs['apc_raw'])))
       for apc_raw in self.attrs['apc_raw']:
           apc_raw_sql = '''INSERT INTO apc_raw (
                 act_trip_start_time,actual_sequence,apc_date_time,block_id,

@@ -8,6 +8,8 @@ from tripdata import TripData
 # read in JSON data and insert into DB
 conn = None
 try:    
+    if sys.argv.__len__() < 2:
+        raise Exception('Usage: Pass in filename argument')
     file_name = sys.argv[1]
     conn = DatabaseConnection().connect()
     [TripData(item).insert(conn) for item in ijson.items(open(file_name),'item')]
